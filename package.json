@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "soiac": "cd lib && soiac && cd ..",
+    "soiac:watch": "cd lib && soiac --watch && cd ..",
+    "install-dart-deps": "cd lib && dart pub get && cd ..",
+    "build": "npm run soiac && cd lib && dart analyze && cd ..",
+    "run:snippets": "dart run bin/snippets.dart",
+    "run:start-service": "npm run build && python3 start_service.py",
+    "run:call-service": "npm run build && python3 call_service.py"
+  },
+  "devDependencies": {
+    "soia-dart-gen": "^1.0.1",
+    "soiac": "^1.0.51"
+  }
+}

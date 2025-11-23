@@ -1,0 +1,11 @@
+.dart_tool/
+.idea/
+.packages
+.vscode/
+build/
+doc/api/
+node_modules/
+pubspec.lock
+soiagen/
+
+*.iml
