@@ -1,27 +1,40 @@
-# soia-dart-example
+# Soia Dart example
 
-A simple Dart "Hello, World!" example project.
+Example showing how to use soia's [Dart code generator](https://github.com/gepheum/soia-dart-gen) in a project.
 
-## Prerequisites
+## Build and run the example
 
-- [Dart SDK](https://dart.dev/get-dart) 3.0 or higher
+```shell
+# Download this repository
+git clone https://github.com/gepheum/soia-dart-example.git
 
-## Setup
+cd soia-dart-example
 
-Install dependencies:
+# Install all dependencies, which include the soia compiler and the soia
+# Dart code generator
+npm i
 
-```bash
-dart pub get
+npm run run:snippets
+# Same as:
+#   npm run build  # .soia to .dart codegen
+#   dart run bin/snippets.dart
 ```
 
-## Run
+### Start a soia service
 
-```bash
-dart run bin/main.dart
+From one process, run:
+```shell
+npm run run:start-service
+#  Same as:
+#    npm run build
+#    dart run bin/start_service.dart
 ```
 
-## Project Structure
+From another process, run:
+```shell
+npm run run:call-service
+#  Same as:
+#    npm run build
+#    dart run bin/call_service.dart
+```
 
-- `bin/main.dart` - Main application entry point
-- `pubspec.yaml` - Package configuration and dependencies
-- `analysis_options.yaml` - Dart linter configuration
