@@ -44,10 +44,10 @@ void main() {
         ..userId = 43
         ..name = "Jane Doe"
         ..pets = [
-          User_Pet(name: "Fluffy", heightInMeters: 0.02, picture: "🐱"),
+          User_Pet(name: "Fluffy", heightInMeters: 0.2, picture: "🐱"),
           User_Pet.mutable()
             ..name = "Fido"
-            ..heightInMeters = 0.025
+            ..heightInMeters = 0.25
             ..picture = "🐶"
             ..toFrozen(),
         ])
@@ -91,11 +91,11 @@ void main() {
   // It returns the existing list if already mutable, or creates and returns a
   // mutable shallow copy.
   mutableLyla.mutablePets.add(User_Pet(
-    name: "Cupcake",
-    heightInMeters: 0.0,
-    picture: "",
+    name: "Simba",
+    heightInMeters: 0.4,
+    picture: "🦁",
   ));
-  mutableLyla.mutablePets.add(User_Pet.mutable()..name = "Simba");
+  mutableLyla.mutablePets.add(User_Pet.mutable()..name = "Cupcake");
 
   // CONVERTING BETWEEN FROZEN AND MUTABLE STRUCTS
 
@@ -109,8 +109,8 @@ void main() {
   assert(evilJane.name == "Evil Jane");
   assert(evilJane.userId == 43);
 
-  // 'User_orMutable' is a type alias for the sealed class that both User and
-  // User_mutable implement.
+  // 'User_orMutable' is a type alias for the sealed class that both 'User' and
+  // 'User_mutable' implement.
   void greet(User_orMutable user) {
     print("Hello, ${user.name}");
   }
@@ -145,7 +145,7 @@ void main() {
 
   assert(johnStatus == User_SubscriptionStatus.free);
   assert(janeStatus == User_SubscriptionStatus.premium);
-  assert(janeStatus == User_SubscriptionStatus.unknown);
+  assert(jolyStatus == User_SubscriptionStatus.unknown);
 
   if (roniStatus is User_SubscriptionStatus_trialWrapper) {
     assert(roniStatus.value.startTime.millisecondsSinceEpoch == 1234);
@@ -219,8 +219,8 @@ void main() {
   // FROZEN LISTS AND COPIES
 
   final pets = [
-    User_Pet(name: "Fluffy", heightInMeters: 0.0, picture: ""),
-    User_Pet(name: "Fido", heightInMeters: 0.0, picture: ""),
+    User_Pet(name: "Fluffy", heightInMeters: 0.25, picture: "🐶"),
+    User_Pet(name: "Fido", heightInMeters: 0.5, picture: "🐻"),
   ];
 
   final jade = User(
