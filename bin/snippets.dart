@@ -4,13 +4,16 @@
 //   dart run bin/snippets.dart
 
 import 'package:soia/soia.dart' as soia;
+import 'package:soia_dart_example/all_strings_to_upper_case.dart';
 import 'package:soia_dart_example/soiagen/user.dart';
 
 // ignore_for_file: unused_local_variable
 // ignore_for_file: unused_element
 
 void main() {
+  // ===========================================================================
   // FROZEN STRUCT CLASSES
+  // ===========================================================================
 
   // For every struct S in the .soia file, soia generates a frozen (deeply
   // immutable) class 'S' and a mutable class 'S_mutable'.
@@ -61,7 +64,9 @@ void main() {
   assert(User.defaultInstance.name == "");
   assert(User.defaultInstance.pets.isEmpty);
 
+  // ===========================================================================
   // MUTABLE STRUCT CLASSES
+  // ===========================================================================
 
   // 'User_mutable' is a dataclass similar to User except it is mutable.
   // Use User.mutable() to create a new instance.
@@ -97,7 +102,9 @@ void main() {
   ));
   mutableLyla.mutablePets.add(User_Pet.mutable()..name = "Cupcake");
 
+  // ===========================================================================
   // CONVERTING BETWEEN FROZEN AND MUTABLE STRUCTS
+  // ===========================================================================
 
   // toMutable() does a shallow copy of the frozen struct, so it's cheap. All
   // the properties of the copy hold a frozen value.
@@ -120,7 +127,9 @@ void main() {
   greet(mutableLyla);
   // Hello, Lyla Doe
 
+  // ===========================================================================
   // MAKING ENUM VALUES
+  // ===========================================================================
 
   final johnStatus = User_SubscriptionStatus.free;
   final janeStatus = User_SubscriptionStatus.premium;
@@ -141,7 +150,9 @@ void main() {
     startTime: DateTime.fromMillisecondsSinceEpoch(5678, isUtc: true),
   );
 
+  // ===========================================================================
   // CONDITIONS ON ENUMS
+  // ===========================================================================
 
   assert(johnStatus == User_SubscriptionStatus.free);
   assert(janeStatus == User_SubscriptionStatus.premium);
@@ -164,7 +175,9 @@ void main() {
     };
   }
 
+  // ===========================================================================
   // SERIALIZATION
+  // ===========================================================================
 
   final serializer = User.serializer;
 
@@ -248,7 +261,9 @@ void main() {
 
   assert(identical(jack.pets, jade.pets));
 
+  // ===========================================================================
   // KEYED LISTS
+  // ===========================================================================
 
   final userRegistry = UserRegistry(
     users: [john, jane, mutableLyla],
@@ -261,7 +276,9 @@ void main() {
   assert(userRegistry.users.findByKey(42) == john);
   assert(userRegistry.users.findByKey(100) == null);
 
+  // ===========================================================================
   // CONSTANTS
+  // ===========================================================================
 
   print(tarzan);
   // User(
@@ -275,7 +292,7 @@ void main() {
   //       picture: "🐒",
   //     ),
   //   ],
-  //   subscriptionStatus: user_soia:User_SubscriptionStatus.wrapTrial(
+  //   subscriptionStatus: User_SubscriptionStatus.wrapTrial(
   //     User_Trial(
   //       startTime: DateTime.fromMillisecondsSinceEpoch(
   //         // 2025-04-02T11:13:29.000Z
@@ -285,7 +302,9 @@ void main() {
   //   ),
   // )
 
+  // ===========================================================================
   // REFLECTION
+  // ===========================================================================
 
   // Reflection allows you to inspect a soia type at runtime.
 
@@ -301,4 +320,30 @@ void main() {
     User.serializer.typeDescriptor.asJson,
   );
   print("Type descriptor deserialized successfully");
+
+  // The 'allStringsToUpperCase' function uses reflection to convert all the
+  // strings contained in a given Soia value to upper case.
+  // See the implementation at
+  // https://github.com/gepheum/soia-dart-example/blob/main/lib/all_strings_to_upper_case.dart
+  print(allStringsToUpperCase<User>(tarzan, User.serializer.typeDescriptor));
+  // User(
+  //   userId: 123,
+  //   name: "TARZAN",
+  //   quote: "AAAAAAAAAAYAAAAAAAAAAYAAAAAAAAAA",
+  //   pets: [
+  //     User_Pet(
+  //       name: "CHEETA",
+  //       heightInMeters: 1.67,
+  //       picture: "🐒",
+  //     ),
+  //   ],
+  //   subscriptionStatus: User_SubscriptionStatus.wrapTrial(
+  //     User_Trial(
+  //       startTime: DateTime.fromMillisecondsSinceEpoch(
+  //         // 2025-04-02T11:13:29.000Z
+  //         1743592409000
+  //       ),
+  //     )
+  //   ),
+  // )
 }
