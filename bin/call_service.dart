@@ -9,11 +9,13 @@ import 'package:skir_dart_example/skirout/service.dart';
 import 'package:skir_dart_example/skirout/user.dart';
 
 void main() async {
+  // Create a client pointing to the service's base URL.
   final serviceClient = skir.ServiceClient('http://localhost:8787/myapi');
 
   print('');
   print('About to add 2 users: John Doe and Tarzan');
 
+  // Call the 'addUserMethod' RPC.
   await serviceClient.wrap(addUserMethod).invoke(
         AddUserRequest(
           user: User(
